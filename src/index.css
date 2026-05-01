@@ -32,3 +32,9 @@
     flex-direction: column;
   }
 }
+
+@layer components {
+  .input {
+    @apply w-full rounded-md border border-bp-cream-dark bg-white px-3 py-2 text-base outline-none focus:border-bp-green;
+  }
+}

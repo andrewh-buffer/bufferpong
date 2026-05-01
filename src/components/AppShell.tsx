@@ -1,6 +1,7 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, Link } from "react-router-dom";
 import { Trophy, User, BookOpen, Swords } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/lib/auth";
 
 const tabs = [
   { to: "/my-match", label: "My match", icon: Swords },
@@ -10,12 +11,25 @@ const tabs = [
 ];
 
 export function AppShell() {
+  const { session, loading } = useAuth();
+
   return (
     <div className="flex min-h-svh flex-col">
       <header className="sticky top-0 z-10 border-b border-bp-cream-dark bg-bp-cream/90 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-md items-center justify-between px-4">
-          <h1 className="text-lg font-semibold text-bp-green">BufferPong</h1>
-          <span className="text-xs text-bp-muted">Retreat '26</span>
+          <Link to="/" className="text-lg font-semibold text-bp-green">
+            BufferPong
+          </Link>
+          {!loading && !session ? (
+            <Link
+              to="/auth"
+              className="text-xs font-medium text-bp-green underline"
+            >
+              Sign in
+            </Link>
+          ) : (
+            <span className="text-xs text-bp-muted">Retreat '26</span>
+          )}
         </div>
       </header>
 
